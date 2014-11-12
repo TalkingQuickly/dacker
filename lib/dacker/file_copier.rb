@@ -1,3 +1,5 @@
+require 'net/scp'
+
 module Dacker
   class FileCopier
     def initialize(options={})
