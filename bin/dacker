@@ -15,5 +15,15 @@ class DackerRunner < Thor
       dackerfile: options[:dackerfile]
     ).deploy!
   end
+
+  desc "run CONTAINER CMD", "run an arbitary CMD in CONTAINER"
+  method_option :dackerfile, desc: "File from which configuration should be loaded", default: "Dackerfile.yml"
+  def execute(container, cmd)
+    Dacker::ShellRunner.new(
+      definition: Dacker::FileLoader.new(
+        path: options[:dackerfile]
+      ).content[container]
+    ).cmd(cmd)
+  end
 end
 DackerRunner.start
