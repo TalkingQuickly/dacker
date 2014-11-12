@@ -27,7 +27,7 @@ load_balancer:
   deploy:
    name: lb1
    files:
-    - /home/deploy/vhosts/test_app.conf:latice/templates/vhost
+    - /home/deploy/vhosts/test_app.conf:dacker/templates/vhost
    signal: HUP
    order: 1
    host: 192.168.50.61
