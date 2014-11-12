@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ben@talkingquickly.co.uk"]
   spec.summary       = %q{Multi host Docker Orchestration tool}
   spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = "http://www.talkingquickly.co.uk/dacker"
+  spec.homepage      = "https://github.com/TalkingQuickly/dacker"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
