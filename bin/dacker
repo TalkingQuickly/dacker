@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'thor'
+require 'dacker'
+
+class DackerRunner < Thor
+  desc "deploy", "Unleashes homer to feed on your dotfiles"
+  method_option :env, :desc => "The environment to deploy to"
+  method_option :dackerfile, desc: "File from which configuration should be loaded", default: "Dackerfile.yml"
+  def deploy
+    ::Dacker::Orchestrator.new(
+      dackerfile: options[:dackerfile]
+    ).deploy!
+  end
+end
+DackerRunner.start
