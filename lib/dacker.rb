@@ -8,7 +8,10 @@ require "dacker/host"
 require "dacker/logger"
 require "dacker/orchestrator"
 require "dacker/shell_runner"
+require "dacker/installer"
 
 module Dacker
-  # Your code goes here...
+  def self.root
+    File.dirname __dir__
+  end
 end
