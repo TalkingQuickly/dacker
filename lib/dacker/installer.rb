@@ -9,8 +9,10 @@ module Dacker
     def install
       begin
         existing_file("Dackerfile.yml")
+        existing_file("Vagrantfile")
         existing_folder("dacker")
         copy("Dackerfile.yml","Dackerfile.yml")
+        copy("Vagrantfile", "Vagrantfile", false)
         copy_directory("dacker","./dacker")
       rescue Errno::ENOTEMPTY
         log "please remove your dacker.old dir then retry", :red
@@ -25,10 +27,10 @@ module Dacker
       )
     end
 
-    def copy(source, destination)
+    def copy(source, destination, use_variant=true)
       log "copying #{source} to #{destination}"
       FileUtils.cp(
-        File.join(template_path, source),
+        File.join(template_path(use_variant), source),
         destination
       )
     end
@@ -47,8 +49,12 @@ module Dacker
       end
     end
 
-    def template_path
-      File.join(::Dacker.root, "templates", variant)
+    def template_path(use_variant=true)
+      if use_variant
+        File.join(::Dacker.root, "templates", variant)
+      else
+        File.join(::Dacker.root, "templates")
+      end
     end
 
     def log(message,color=:green)

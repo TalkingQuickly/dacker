@@ -1,0 +1,31 @@
+$script = <<SCRIPT
+curl -sSL https://get.docker.com/ubuntu/ | sudo sh
+sudo groupadd docker
+sudo gpasswd -a vagrant docker
+grep -q -F 'DOCKER_OPTS="-H 127.0.0.1:2375 -H unix:///var/run/docker.sock -d"' /etc/default/docker || echo 'DOCKER_OPTS="-H 127.0.0.1:2375 -H unix:///var/run/docker.sock -d"' >> /etc/default/docker
+sudo service docker restart
+SCRIPT
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Setup resource requirements
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  # Ubuntu 14.04
+  config.vm.box = "ubuntu/trusty64"
+
+  # Use NFS for fileshares, otherwise will hit
+  # performance issues
+  config.vm.synced_folder ".", "/vagrant", type: "nfs"
+
+  config.vm.define "dacker1" do |vagrant|
+    vagrant.vm.hostname = "dacker1"
+    vagrant.vm.network :private_network, ip: "192.168.50.60"
+
+    vagrant.vm.provision "shell", inline: $script
+  end
+end
