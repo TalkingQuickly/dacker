@@ -4,7 +4,7 @@ module Dacker
       @dackerfile_path = options[:dackerfile] || 'Dacerfile.yml'
       @env = options[:env]
       @dacker = options[:dacker] || dackerfile
-      log "No configuration found for environment: #{env}", :red
+      log "No configuration found for environment: #{env}", :red unless dacker
     end
 
     attr_accessor :dacker, :dackerfile_path, :env
