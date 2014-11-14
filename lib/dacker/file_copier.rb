@@ -6,9 +6,10 @@ module Dacker
       @files = options[:config]["files"]
       @host = options[:config]["host"]
       @user = options[:config]["user"]
+      @password = options[:config]["password"]
     end
 
-    attr_accessor :files, :host, :user
+    attr_accessor :files, :host, :user, :password
 
     def copy!
       return unless files
@@ -25,15 +26,26 @@ module Dacker
           host,
           user,
           source,
-          destination
+          destination,
+          ssh: ssh_options
         )
         log "copied ok"
       end
     end
 
     def ensure_dir(file)
-      Net::SSH.start(host, user) do |ssh|
+      Net::SSH.start(host, user, ssh_options) do |ssh|
         ssh.exec "mkdir -p #{file.split("/")[0..-2].join("/")}"
+      end
+    end
+
+    def ssh_options
+      if password
+        {
+          password: password
+        }
+      else
+        {}
       end
     end
 

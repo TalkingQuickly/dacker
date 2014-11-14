@@ -9,7 +9,8 @@ module Dacker
       @name = options[:name]
       @host = Host.new(
         host: options[:host],
-        username: options[:username]
+        username: options[:username],
+        password: options[:password]
       )
       @image = config.image
       Excon.defaults[:write_timeout] = 1000

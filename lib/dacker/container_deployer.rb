@@ -75,7 +75,8 @@ module Dacker
         config: definition,
         name: definition["deploy"]["name"],
         host: definition["deploy"]["host"],
-        username: definition["deploy"]["username"]
+        username: definition["deploy"]["user"],
+        password: definition["deploy"]["password"]
       )
     end
 

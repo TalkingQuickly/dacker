@@ -8,10 +8,11 @@ module Dacker
       @port = options[:port] || 2375
       @destport = options[:destport] || (port + 1)
       @username = options[:username] || 'deploy'
+      @password = options[:password]
       forward_port!
     end
 
-    attr_accessor :host, :port, :destport, :username
+    attr_accessor :host, :port, :destport, :username, :password
 
     def containers(options)
       ::Docker::Container.all(options, docker)
@@ -29,7 +30,17 @@ module Dacker
     end
 
     def gateway
-      @gateway ||= Net::SSH::Gateway.new(host, username)
+      @gateway ||= Net::SSH::Gateway.new(host, username, gateway_options)
+    end
+
+    def gateway_options
+      if password
+        {
+          password: password
+        }
+      else
+        {}
+      end
     end
 
     def forward_port!

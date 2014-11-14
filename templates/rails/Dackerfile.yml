@@ -15,20 +15,22 @@ rails_app:
     - create
     - start
    order: 2
-   host: 192.168.50.61
-   user: deploy
+   host: 192.168.50.60
+   user: vagrant
+   password: vagrant
 
 load_balancer:
   image: nginx
   volumes:
-   - /home/deploy/vhosts:/etc/nginx/conf.d
+   - /home/vagrant/vhosts:/etc/nginx/conf.d
   ports:
    - "80:80"
   deploy:
    name: lb1
    files:
-    - /home/deploy/vhosts/test_app.conf:dacker/templates/vhost
+    - /home/vagrant/vhosts/test_app.conf:dacker/templates/vhost
    signal: HUP
    order: 1
-   host: 192.168.50.61
-   user: deploy
+   host: 192.168.50.60
+   user: vagrant
+   password: vagrant
