@@ -17,7 +17,60 @@ The most important file here is the `Dackerfile.yml` which uses a [Fig](www.fig.
 The default Rails Dackerfile looks like this:
 
 ```yaml
+vagrant: &VAGRANT
+  host: 192.168.50.60
+  user: vagrant
+  password: vagrant
+
+development:
+  rails_app:
+    build: .
+    ports:
+     - "3000:3000"
+    environment:
+     - RAILS_ENV=development
+    volumes:
+     - /vagrant:/app
+    deploy:
+     name: web1
+     signal: SIGTERM
+     container:
+      - delete
+      - build
+      - create
+      - start
+     order: 2
+     <<: *VAGRANT
+
+  load_balancer:
+    image: nginx
+    volumes:
+     - /home/vagrant/vhosts:/etc/nginx/conf.d
+    ports:
+     - "80:80"
+    deploy:
+     name: lb1
+     files:
+      - /home/vagrant/vhosts/test_app.conf:dacker/templates/vhost
+     signal: HUP
+     order: 1
+     <<: *VAGRANT
+
+  database:
+    image: postgres
+    volumes:
+     - /home/vagrant/pg_data:/var/lib/postgresql/data
+    ports:
+     - 5432:5432
+    deploy:
+     name: pg1
+     order: 0
+     <<: *VAGRANT
 ```
+
+This defines three containers for our environment, an Nginx load balancer, a rails application and a postgresql database server. It also defines the volumes for these containers for persistence and the ports to be exposed. If the idea of data columes and exposing ports is new to you don't worry, just head over to [the interactive docker tutorial](https://www.docker.com/tryit/) then come back here!
+
+Notice that this is a standard YAML file, so you can use anchors and aliases in exactly the same way they're used in something like the Rails `database.yml`.
 
 Bring up the Vagrant node with `vagrant up`. This a lightweight VM running only the Docker daemon. You will be prompted for your sudo password, this is required to setup NFS shares which offer far better performance the Vagrant defaults.
 
