@@ -34,3 +34,16 @@ load_balancer:
    host: 192.168.50.60
    user: vagrant
    password: vagrant
+
+database:
+  image: postgres
+  volumes:
+   - /home/vagrant/pg_data:/var/lib/postgresql/data
+  ports:
+   - 5432:5432
+  deploy:
+   name: pg1
+   order: 0
+   host: 192.168.50.60
+   user: vagrant
+   password: vagrant
