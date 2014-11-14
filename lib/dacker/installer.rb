@@ -10,8 +10,10 @@ module Dacker
       begin
         existing_file("Dackerfile.yml")
         existing_file("Vagrantfile")
+        existing_File("Dockerfile")
         existing_folder("dacker")
         copy("Dackerfile.yml","Dackerfile.yml")
+        copy("Dockerfile","Dockerfile")
         copy("Vagrantfile", "Vagrantfile", false)
         copy_directory("dacker","./dacker")
       rescue Errno::ENOTEMPTY
