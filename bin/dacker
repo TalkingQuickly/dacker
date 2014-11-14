@@ -4,7 +4,6 @@ lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
 $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'thor'
-require 'pry'
 require 'dacker'
 
 class DackerRunner < Thor
@@ -30,11 +29,6 @@ class DackerRunner < Thor
   desc "install", "create a basic dacker structure"
   def install
     ::Dacker::Installer.new.install
-  end
-
-  desc "console",""
-  def console
-    binding.pry
   end
 end
 DackerRunner.start

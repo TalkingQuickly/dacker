@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ben Dixon"]
   spec.email         = ["ben@talkingquickly.co.uk"]
   spec.summary       = %q{Multi host Docker Orchestration tool}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = "https://github.com/TalkingQuickly/dacker"
   spec.license       = "MIT"
 
