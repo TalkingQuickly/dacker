@@ -68,11 +68,11 @@ development:
      <<: *VAGRANT
 ```
 
-This defines three containers for our environment, an Nginx load balancer, a rails application and a postgresql database server. It also defines the volumes for these containers for persistence and the ports to be exposed. If the idea of data columes and exposing ports is new to you don't worry, just head over to [the interactive docker tutorial](https://www.docker.com/tryit/) then come back here!
+This defines three containers for our environment, an Nginx load balancer, a rails application and a postgresql database server. It also defines the volumes for these containers for persistence and the ports to be exposed. If the idea of data volumes and exposing ports is new to you don't worry, just head over to [the interactive docker tutorial](https://www.docker.com/tryit/) then come back here!
 
 Notice that this is a standard YAML file, so you can use anchors and aliases in exactly the same way they're used in something like the Rails `database.yml`.
 
-Bring up the Vagrant node with `vagrant up`. This a lightweight VM running only the Docker daemon. You will be prompted for your sudo password, this is required to setup NFS shares which offer far better performance the Vagrant defaults.
+Bring up the Vagrant node with `vagrant up`. This a lightweight VM running only the Docker daemon. You will be prompted for your sudo password, this is required to setup NFS shares which offer far better performance than the Vagrant defaults.
 
 Ensure the `pg` gem is present in your Gemfile and then modify your `config/database.yml` to source credentials from the environment as follows:
 
@@ -97,6 +97,8 @@ production:
   <<: *default
   database: application_name_production
 ```
+
+Note that we set these environment variables in the `environment` section of the `rails_app` container in the `Dackerfile`.
 
 Execute `bundle exec dacker deploy` and wait. The first time you run this it may take a while as it has to download several images and build the Rails app image from scratch. Subsequent usage will be much faster.
 
