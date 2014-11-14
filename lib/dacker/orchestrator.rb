@@ -2,8 +2,9 @@ module Dacker
   class Orchestrator
     def initialize(options={})
       @dackerfile_path = options[:dackerfile] || 'Dacerfile.yml'
-      @dacker = options[:dacker] || dackerfile
       @env = options[:env]
+      @dacker = options[:dacker] || dackerfile
+      log "No configuration found for environment: #{env}", :red
     end
 
     attr_accessor :dacker, :dackerfile_path, :env
@@ -13,7 +14,7 @@ module Dacker
         ContainerDeployer.new(
           definition: lf[1]
         ).deploy!
-      end
+      end if dacker
     end
 
     def filtered_containers(filter)
@@ -33,6 +34,10 @@ module Dacker
         path: dackerfile_path,
         env: env
       ).content
+    end
+
+    def log(message, color=:green)
+      Logger.log("#{message}", color)
     end
   end
 end

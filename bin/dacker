@@ -8,7 +8,7 @@ require 'dacker'
 
 class DackerRunner < Thor
   desc "deploy", "Unleashes homer to feed on your dotfiles"
-  method_option :env, :desc => "The environment to deploy to", default: "env"
+  method_option :env, :desc => "The environment to deploy to", default: "development"
   method_option :dackerfile, desc: "File from which configuration should be loaded", default: "Dackerfile.yml"
   def deploy
     ::Dacker::Orchestrator.new(
@@ -31,6 +31,5 @@ class DackerRunner < Thor
   def install
     ::Dacker::Installer.new.install
   end
-
 end
 DackerRunner.start
