@@ -8,7 +8,7 @@ Please note that Dacker is very new and currently under heavy development and so
 
 This example assumes a Rails application using Postgres as a database but should be generally applicable to web applications. Vagrant is required for local development so make sure you've got an up to date version installed before starting <https://www.vagrantup.com/downloads.html>.
 
-Begin by adding the dacker gem to your Gemfile and running bundle.
+Begin by adding the `dacker` gem to your `Gemfile` and running `bundle`.
 
 In the root of the project execute `bundle exec dacker install`. This will generate a simple example configuration, including a `Vagrantfile` for local development.
 
