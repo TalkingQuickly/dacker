@@ -22,6 +22,7 @@ module Dacker
 
     def env
       config["environment"].join(" ") if config["environment"]
+      config["environment"] || []
     end
 
     def exposed_ports
