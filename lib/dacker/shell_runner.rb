@@ -35,7 +35,7 @@ module Dacker
     end
 
     def name
-      definition["deploy"]["image"] || definition["deploy"]["name"]
+      definition["image"] || definition["deploy"]["name"]
     end
 
     def username
