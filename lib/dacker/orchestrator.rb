@@ -3,9 +3,10 @@ module Dacker
     def initialize(options={})
       @dackerfile_path = options[:dackerfile] || 'Dacerfile.yml'
       @dacker = options[:dacker] || dackerfile
+      @env = options[:env]
     end
 
-    attr_accessor :dacker, :dackerfile_path
+    attr_accessor :dacker, :dackerfile_path, :env
 
     def deploy!(filter=nil)
       filtered_containers(filter).each do |lf|
@@ -29,7 +30,8 @@ module Dacker
 
     def dackerfile
       @dackerfile ||= FileLoader.new(
-        path: dackerfile_path
+        path: dackerfile_path,
+        env: env
       ).content
     end
   end

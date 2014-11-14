@@ -16,3 +16,7 @@ mkmf.log
 /Dackerfile.yml.old
 /dacker/
 /dacker.old/
+/Vagrantfile
+/Vagrantfile.old
+/Dockerfile
+/Dockerfile.old

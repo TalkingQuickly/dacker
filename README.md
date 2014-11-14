@@ -4,15 +4,20 @@ Dacker is a Docker orchestration tool written in Ruby. It works across multiple 
 
 Please note that Dacker is very new and currently under heavy development and so use in production is very much at your own risk.
 
-## Usage
-
-### Rails Example
+## Example Usage (Rails)
 
 This example assumes a Rails application using Postgres as a database but should be generally applicable to web applications. Vagrant is required for local development so make sure you've got an up to date version installed before starting <https://www.vagrantup.com/downloads.html>.
 
 Begin by adding the dacker gem to your Gemfile and running bundle.
 
 In the root of the project execute `bundle exec dacker install`. This will generate a simple example configuration, including a `Vagrantfile` for local development.
+
+The most important file here is the `Dackerfile.yml` which uses a [Fig](www.fig.sh) like syntax for defining containers and environments.
+
+The default Rails Dackerfile looks like this:
+
+```yaml
+```
 
 Bring up the Vagrant node with `vagrant up`. This a lightweight VM running only the Docker daemon. You will be prompted for your sudo password, this is required to setup NFS shares which offer far better performance the Vagrant defaults.
 
@@ -46,7 +51,7 @@ Visit 192.168.50.60 in your browser. If all's well you will see your Rails app!
 
 The default configuration mounts the root of the project in `/vagrant` which is in turn mounted in /app of the `rails_app` docker container. This means that changes made locally in development will be reflected immediately as per usual, without needing to re-deploy.
 
-#### Executing Commands in the Rails Environment
+## Executing Commands in the Rails Environment
 
 Dacker provides a simple interface for running commands within your applications containers.
 
