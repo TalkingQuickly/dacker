@@ -1,5 +1,5 @@
 rails_app:
-  build: /Users/ben/proj/docker/capistrano-docker
+  build: .
   ports:
    - "3000:3000"
   environment:
