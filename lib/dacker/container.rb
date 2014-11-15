@@ -73,6 +73,10 @@ module Dacker
     def create
       pull if !config.build?
       log "creating container"
+      log "env: #{env}"
+      log "image: #{image}"
+      log "exposed_ports: #{config.exposed_ports}"
+      log "name: #{name}"
       Docker::Container.create(
         {
           "Env" => config.env,
