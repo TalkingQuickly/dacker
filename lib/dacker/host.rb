@@ -10,6 +10,20 @@ module Dacker
       @username = options[:username] || 'deploy'
       @password = options[:password]
       forward_port!
+      authenticate!
+    end
+
+    def authenticate!
+      if (user=ENV['DOCKER_USERNAME']) && (password=ENV['DOCKER_PASSWORD']) && (email=ENV['DOCKER_EMAIL'])
+        Docker.authenticate!(
+          {
+            'username' => user,
+            'password' => password,
+            'email' => email
+          },
+          docker
+        )
+      end
     end
 
     attr_accessor :host, :port, :destport, :username, :password
