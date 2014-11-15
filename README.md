@@ -4,6 +4,15 @@ Dacker is a Docker orchestration tool written in Ruby. It works across multiple 
 
 Please note that Dacker is very new and currently under heavy development and so use in production is very much at your own risk.
 
+## Why Dacker
+
+Dacker began as an internal tool at [Make It With Code](http://www.makeitwithcode.com). It was built because we had several requirements not met by existing orchestration tools:
+
+* A single toolchain for both development environments and production deployments
+* Full support for deploying to multiple hosts without a requirement to publicly expose the Docker Daemons HTTP API
+* An easy method of managing production infrastructure without requiring any additional server side daemons or central orchestration servers
+* Very quick deployment of "standard" 
+
 ## Example Usage (Rails)
 
 This example assumes a Rails application using Postgres as a database but should be generally applicable to web applications. Vagrant is required for local development so make sure you've got an up to date version installed before starting <https://www.vagrantup.com/downloads.html>.
