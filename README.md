@@ -11,7 +11,7 @@ Dacker began as an internal tool at [Make It With Code](http://www.makeitwithcod
 * A single toolchain for both development environments and production deployments
 * Full support for deploying to multiple hosts without a requirement to publicly expose the Docker Daemons HTTP API
 * An easy method of managing production infrastructure without requiring any additional server side daemons or central orchestration servers
-* Very quick deployment of "standard" 
+* Very quick deployment of "standard" Ruby (Rails or Sinatra) applications and associated stacks which could co-exist and scale across a shared pseudo cluster of standard nodes
 
 ## Example Usage (Rails)
 
