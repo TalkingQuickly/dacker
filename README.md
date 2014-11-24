@@ -38,6 +38,8 @@ development:
      - "3000:3000"
     environment:
      - RAILS_ENV=development
+     - PG_HOST=192.168.50.60
+     - PG_USERNAME=postgres
     volumes:
      - /vagrant:/app
     deploy:
