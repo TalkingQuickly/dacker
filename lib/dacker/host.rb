@@ -6,7 +6,6 @@ module Dacker
     def initialize(options={})
       @host = options[:host]
       @port = options[:port] || 2375
-      @destport = options[:destport] || (port + 1)
       @username = options[:username] || 'deploy'
       @password = options[:password]
       forward_port!
@@ -26,7 +25,7 @@ module Dacker
       end
     end
 
-    attr_accessor :host, :port, :destport, :username, :password
+    attr_accessor :host, :port, :username, :password
 
     def containers(options)
       ::Docker::Container.all(options, docker)
@@ -63,6 +62,10 @@ module Dacker
 
     def close_port!
       gateway.shutdown!
+    end
+
+    def destport
+      @destport ||= TCPServer.new('127.0.0.1', 0).addr[1]
     end
   end
 end
