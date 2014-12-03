@@ -1,4 +1,5 @@
 module Dacker
+  # @YODO: this is really an option parser
   class FileParser
     def initialize(options={})
       @config = options[:config]

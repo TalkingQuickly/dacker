@@ -3,6 +3,7 @@ require 'docker'
 module Dacker
   class Container
     def initialize(options={})
+      # @TODO: this is really an option parser
       @config = FileParser.new(
         config: options[:config]
       )
@@ -13,8 +14,6 @@ module Dacker
         password: options[:password]
       )
       @image = config.image
-      Excon.defaults[:write_timeout] = 1000
-      Excon.defaults[:read_timeout] = 1000
     end
 
     attr_accessor :config, :host, :image, :name

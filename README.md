@@ -147,6 +147,10 @@ bundle exec dacker execute rails_app "bash"
 
 Remember though, each of these commands runs in an entirely isolated environment, so no files are persisted. The exception to this is files written to `/app` in development since this is a shared folder on your local filesystem (the project root).
 
+## Specs
+
+Requires a live Docker host to run against (eventually this will use VCR). The Docker API should be accessible on localhost, port 5000. The easiest way is to fire up a suitable Vagrant box and then establish an SSH tunnel, e.g. `ssh -L 5000:127.0.0.1:2375 -N deploy@192.168.50.31`. This host should have the `ubuntu` base image already pulled (e.g. `docker pull ubuntu`).
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/dacker/fork )

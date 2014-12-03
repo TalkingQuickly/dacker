@@ -10,6 +10,9 @@ require "dacker/orchestrator"
 require "dacker/shell_runner"
 require "dacker/installer"
 
+Excon.defaults[:write_timeout] = 1000
+Excon.defaults[:read_timeout] = 1000
+
 module Dacker
   def self.root
     File.dirname __dir__
