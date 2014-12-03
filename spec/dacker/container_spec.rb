@@ -56,5 +56,16 @@ describe Dacker::Container do
     end
   end
 
+  describe ".start" do
+    before do
+      @container = Docker::Container.create({'Cmd' => ["/bin/sh", '-c', 'while true; do echo Hello World; sleep 1; done'], 'Image' => 'ubuntu'}, docker)
+    end
+
+    it "should start the container" do
+      expect(container.container).to be_nil
+      container.start
+      expect(container.container).to_not be_nil
+    end
+  end
 
 end

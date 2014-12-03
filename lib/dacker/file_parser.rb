@@ -9,6 +9,7 @@ module Dacker
 
     def port_bindings
       out = {}
+      return out if config["ports"].nil?
       config["ports"].each do |port|
         host = port.split(":")[0]
         container = port.split(":")[1]
@@ -28,6 +29,7 @@ module Dacker
 
     def exposed_ports
       out = {}
+      return out if config["ports"].nil?
       config["ports"].each do |port|
         container = port.split(":")[1]
         out["#{container}/tcp"] = {}
