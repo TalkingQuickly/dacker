@@ -1,6 +1,7 @@
 require 'dacker'
 require 'spec_helper'
 require 'pry'
+require 'securerandom'
 
 describe Dacker::Container do
   let(:docker) { ::Docker::Connection.new('tcp://localhost:5000',{}) }
@@ -65,6 +66,28 @@ describe Dacker::Container do
       expect(container.container).to be_nil
       container.start
       expect(container.container).to_not be_nil
+    end
+  end
+
+  describe ".build" do
+    let (:container) do
+      ::Dacker::Container.new(
+        {
+          config: {"build" => File.join(File.expand_path(File.dirname(File.dirname(__FILE__))),"support","docker_build_example") },
+          name: SecureRandom.hex,
+          host: '192.168.50.31',
+          username: 'deploy'
+        }
+      )
+
+    end
+
+    before do
+      container.build
+    end
+
+    it "should build the container" do
+      expect(Docker::Image.exist?(container.image,{},docker)).to eq(true)
     end
   end
 
