@@ -2,12 +2,19 @@
 
 Dacker is a Docker orchestration tool written in Ruby. It works across multiple hosts and is designed to be used for managing both development and production environments.
 
-Please note that Dacker is very new and currently under heavy development and so use in production is very much at your own risk.
+## Dacker v Compose
 
-## Why Dacker
+On the surface Dacker has a lot in common with [Compose](http://docs.docker.com/compose/). It allows you to orchestrate containers based on a yaml file definition. In practice the primary purpose of Dacker was to allow us to orchestrate containers directly from a Rails application by passing around standard Ruby hashes. YAML file deployment was a welcome bonus since YAML files are easily loaded into standard Ruby hashes.
 
-Dacker began as an internal tool at [Make It With Code](http://www.makeitwithcode.com). It was built because we had several requirements not met by existing orchestration tools:
+If you just need YAML file container orchestration, you're almost certainly better off using Compose as it has far broader functionality. If you're looking to directly orchestrate containers from Ruby code, Dacker may be useful to you.
 
+## Why Dacker Exists
+
+Dacker began as an internal tool at [Make It With Code](http://www.makeitwithcode.com). Specifically we needed to deploy a NodeJS application in a container, whenever a user signed up to the Rails application. The Rails application needed to manage this deployment. When an existing user logged in, we needed to be able to check if their container was running and if not re-start it.
+
+We built Dacker because the above meant we had several requirements, not met by existing orchestration tools:
+
+* An easy way to embed container lifecycle management into a Rails application and reason in terms of "container state" rather than specific Docker API calls
 * A single toolchain for both development environments and production deployments
 * Full support for deploying to multiple hosts without a requirement to publicly expose the Docker Daemons HTTP API
 * An easy method of managing production infrastructure without requiring any additional server side daemons or central orchestration servers
